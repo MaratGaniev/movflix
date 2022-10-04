@@ -1,0 +1,89 @@
+.container {
+  background-color: #343a40;
+  padding: 35px 35px 40px 35px;
+  min-height: calc(100vh - 70px);
+}
+.items {
+  display: flex;
+  gap: 65px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+.item {
+  align-self: stretch;
+}
+
+.itemTitle {
+  font-size: 23px;
+  font-weight: 400;
+  margin-top: 10px;
+  width: 225px;
+  color: white;
+}
+
+.itemInfo {
+  display: flex;
+  gap: 35px;
+}
+
+.itemInfo > * {
+  color: #a3a3a3;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+}
+.itemImage {
+  height: 350px;
+  width: 250px;
+  cursor: pointer;
+  transition: 0.4s all ease;
+}
+.itemImage:hover {
+  opacity: 0.4;
+}
+
+.title {
+  margin-bottom: 50px;
+  text-align: center;
+  color: white;
+  font-family: "Poppins", serif;
+}
+
+.page {
+  border: none;
+  --size: 40px;
+  --margin: 3px;
+  margin: 0 var(--margin);
+  border-radius: 6px;
+  background: #202020;
+  max-width: auto;
+  min-width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 6px;
+  color: white;
+  font-size: 18px;
+}
+.pages {
+  justify-content: center;
+  margin-bottom: 30px;
+  display: flex;
+
+  align-items: center;
+}
+
+.page:hover {
+  opacity: 0.5;
+}
+.page.active {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.job {
+  flex-direction: column;
+  gap: 0px;
+}

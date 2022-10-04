@@ -1,0 +1,62 @@
+.wrapper {
+  background-color: rgba(48, 48, 48, 0.3);
+  margin: 0 auto;
+  padding: 70px 60px;
+}
+
+.title,
+.suptitle {
+  font-family: "Poppins", sans-serif;
+  color: white;
+  width: fit-content;
+  margin: 0 auto;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.suptitle {
+  margin-bottom: 40px;
+}
+
+.searchBar {
+  font-family: "Poppins", sans-serif;
+  margin: 0 auto;
+  display: flex;
+  width: 80%;
+  position: relative;
+}
+
+.input {
+  height: 56px;
+  line-height: 56px;
+  font-size: 1.1em;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 30px;
+  padding: 20px 40px;
+  flex-grow: 1;
+}
+
+.submit {
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 56px;
+  padding: 10px 26px;
+  border: none;
+  border-radius: 30px;
+  position: absolute;
+  top: 0;
+  right: -1px;
+  color: black;
+  flex-shrink: 1;
+}
+
+.input:focus {
+  border: none;
+  outline: none;
+}

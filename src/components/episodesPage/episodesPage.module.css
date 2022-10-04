@@ -1,0 +1,95 @@
+.episode {
+  gap: 20px;
+  display: flex;
+
+  min-height: 175px;
+  max-height: fit-content;
+  width: 1250px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px auto 40px auto;
+
+  border-radius: 8px;
+}
+.episodesCount {
+  padding-left: 325px;
+  padding-top: 40px;
+  margin-bottom: 5px;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+.grayText {
+  opacity: 0.6;
+  font-weight: 400;
+}
+.episodeMisc {
+  font-size: 1em;
+  font-weight: 600;
+  font-family: "Poppins", serif;
+}
+.episodeImage {
+  width: 227px;
+  height: 127px;
+
+  border-top-left-radius: 8px;
+}
+.episodeTitle {
+  font-weight: 600;
+  font-size: 1.5em;
+  font-family: "Poppins", serif;
+  display: inline;
+}
+
+.episodeDescription {
+  font-family: "Poppins", serif;
+  margin-top: 20px;
+  display: block;
+  width: 950px;
+}
+.episodeInfo {
+  padding-top: 10px;
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+}
+.episodeTitle,
+.episodeMisc {
+  width: fit-content;
+}
+.header {
+  display: flex;
+  gap: 20px;
+  background-color: #03213a;
+  height: 120px;
+  margin-bottom: 40px;
+  padding-left: 330px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.headerTitle {
+  font-weight: 700;
+  font-family: "Poppins", serif;
+  color: white;
+  margin-top: 10px;
+}
+.backButton {
+  font-family: "Poppins", serif;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.backButton:hover {
+  opacity: 0.6;
+}
+
+.headerImage {
+  width: 57px;
+  height: 87px;
+}
+
+.episodeNumber {
+  margin-right: 10px;
+}
