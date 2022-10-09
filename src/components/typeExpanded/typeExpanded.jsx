@@ -4,12 +4,9 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import classes from "./typeExpanded.module.css";
 import poster_placeholder from "./../../assets/no_poster.png";
-import { get_persons_popularity } from "./../../helpers/prettifyPopularity";
+
 import {
   getPopularMovies,
-  getSearchMovies,
-  getSearchPersons,
-  getSearchTv,
   getTopMovies,
   getUpcomingMovies,
 } from "./../../http";

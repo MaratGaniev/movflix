@@ -8,6 +8,9 @@ import { TypeExpanded } from "./components/typeExpanded/typeExpanded";
 import { SeasonsPage } from "./components/seasonsPage/seasonsPage";
 import EpisodesPage from "./components/episodesPage/episodesPage";
 
+import CastPageShow from "./components/castPage/castPageShow";
+import CastPageMovie from "./components/castPage/castPageMovie";
+
 export const routes = [
   {
     path: "/movflix/",
@@ -24,6 +27,14 @@ export const routes = [
   {
     path: "/movflix/shows/page/:id/:title",
     component: ShowPage,
+  },
+  {
+    path: "/movflix/movies/page/:id/:title/cast_crew",
+    component: CastPageMovie,
+  },
+  {
+    path: "/movflix/shows/page/:id/:title/cast_crew",
+    component: CastPageShow,
   },
   {
     path: "/movflix/shows/page/:id/:title/seasons",

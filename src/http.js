@@ -9,10 +9,9 @@ import {
   setSearchTv,
   setSearchPersons,
   setMoviesFetch,
-  setShowId,
-  setShowDetails,
   setCurrentShow,
   setCurrentSeason,
+  setShowFullCredits,
 } from "./store/reducers/moviesReducer";
 
 export const getMainPageMovies = (API_KEY) => async (dispatch) => {
@@ -115,7 +114,7 @@ export const getCurrentMovie =
   (tmdb_api_key, movie_id, title, omdb_api_key) => async (dispatch) => {
     dispatch(setMoviesFetch(true));
     await fetch(
-      `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${tmdb_api_key}&language=en-US&append_to_response=keywords,reviews,external_ids,similar`
+      `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${tmdb_api_key}&language=en-US&append_to_response=keywords,reviews,external_ids,similar,credits`
     )
       .then((res) => res.json())
       .then((result) => {
@@ -126,6 +125,7 @@ export const getCurrentMovie =
             socials: result.external_ids,
             reviews: result.reviews.results,
             similar: result.similar.results,
+            credits: result.credits,
           })
         );
       });
@@ -233,23 +233,16 @@ export const getSearchPersons =
     dispatch(setMoviesFetch(false));
   };
 
-export const getShowId = (API_KEY, show_id) => async (dispatch) => {
-  await fetch(
-    `https://api.themoviedb.org/3/tv/${show_id}/external_ids?api_key=${API_KEY}&language=en-US`
-  )
-    .then((res) => res.json())
-    .then((result) => {
-      dispatch(setShowId(result.imdb_id));
-    });
-};
-
 export const getCurrentShow = (tmdb_api_key, show_id) => async (dispatch) => {
   dispatch(setMoviesFetch(true));
   await fetch(
-    `https://api.themoviedb.org/3/tv/${show_id}?api_key=${tmdb_api_key}&language=en-US&append_to_response=keywords,external_ids,reviews,similar`
+    `https://api.themoviedb.org/3/tv/${show_id}?api_key=${tmdb_api_key}&language=en-US&append_to_response=keywords,external_ids,reviews,similar,content_ratings,credits`
   )
     .then((res) => res.json())
     .then((result) => {
+      let ratings = result.content_ratings.results.filter(
+        (rating) => rating.iso_3166_1 === "US"
+      );
       dispatch(
         setCurrentShow({
           currentShow: result,
@@ -258,33 +251,14 @@ export const getCurrentShow = (tmdb_api_key, show_id) => async (dispatch) => {
           reviews: result.reviews.results,
           genres: result.genres,
           similar: result.similar.results,
+          ratings: ratings,
+          credits: result.credits,
         })
       );
     });
 
   dispatch(setMoviesFetch(false));
 };
-
-export const getCurrentShowDetails =
-  (omdb_api_key, omdb_id) => async (dispatch) => {
-    dispatch(setMoviesFetch(true));
-    await fetch(`https://www.omdbapi.com/?i=${omdb_id}&apikey=${omdb_api_key}`)
-      .then((res) => res.json())
-      .then((result) => {
-        dispatch(
-          setShowDetails({
-            awards: result.Awards,
-            director: result.Director,
-            writer: result.Writer,
-            actors: result.Actors,
-            rated: result.Rated,
-            language: result.Language,
-            year: result.Year,
-          })
-        );
-      });
-    dispatch(setMoviesFetch(false));
-  };
 
 export const getSearchEpisodes =
   (API_KEY, tv_id, season_number) => async (dispatch) => {
@@ -308,3 +282,17 @@ export const getSearchEpisodes =
       });
     dispatch(setMoviesFetch(false));
   };
+
+//          full cast + crew
+
+export const getShowSearchCrew = (API_KEY, tv_id) => async (dispatch) => {
+  dispatch(setMoviesFetch(true));
+  await fetch(
+    `https://api.themoviedb.org/3/tv/${tv_id}/aggregate_credits?api_key=${API_KEY}`
+  )
+    .then((res) => res.json())
+    .then((result) => {
+      dispatch(setShowFullCredits({ cast: result.cast, crew: result.crew }));
+    });
+  dispatch(setMoviesFetch(false));
+};

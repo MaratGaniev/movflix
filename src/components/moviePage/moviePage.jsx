@@ -16,6 +16,7 @@ import SmallCarousel from "../carousels/smallCarousel/smallCarousel";
 import { get_duration } from "../../helpers/getMovieDuration";
 import { get_date } from "../../helpers/prettifyDate";
 import poster_placeholder from "./../../assets/no_poster.png";
+import { CastCarousel } from "../carousels/castCarousel/castCarousel";
 
 export const MoviePage = () => {
   let params = useParams()["*"].split("/");
@@ -137,6 +138,10 @@ export const MoviePage = () => {
               awards: currentMovie.awards,
             }}
           />
+          <div className={classes.castBlock}>
+            <h3 className={classes.castHeader}>The cast of the movie</h3>
+            <CastCarousel items={currentMovie.credits.cast.slice(0, 11)} />
+          </div>
           {currentMovie.similar.length === 0 ? null : (
             <SmallCarousel
               items={currentMovie.similar}

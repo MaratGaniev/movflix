@@ -20,7 +20,7 @@ const EpisodesPage = () => {
   );
   useEffect(() => {
     dispatch(getSearchEpisodes(api_key, params.id, params.season));
-  }, []);
+  }, [api_key, dispatch, params.id, params.season]);
 
   return (
     <div>

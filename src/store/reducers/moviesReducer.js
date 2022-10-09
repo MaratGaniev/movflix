@@ -10,13 +10,11 @@ const SET_SEARCH_FETCHING = "SET_SEARCH_FETCHING";
 const SET_SEARCH_MOVIES = "SET_SEARCH_MOVIES";
 const SET_SEARCH_TV = "SET_SEARCH_TV";
 const SET_SEARCH_PERSON = "SET_SEARCH_PERSON";
-const SET_REVIEWS = "SET_REVIEWS";
 const SET_DETAILS_MOVIE = "SET_DETAILS_MOVIE";
-const SET_DETAILS_SHOW = "SET_DETAILS_SHOW";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_SIMILAR = "SET_SIMILAR_MOVIES";
-const SET_SHOW_ID = "SET_SHOW_ID";
 const SET_CURRENT_SEASON = "SET_CURRENT_SEASON";
+const SET_SHOW_FULL_CREDITS = "SET_SHOW_FULL_CREDITS";
+const SET_MOVIE_FULL_CREDITS = "SET_MOVIE_FULL_CREDITS";
 
 const defaultStore = {
   isError: false,
@@ -25,6 +23,12 @@ const defaultStore = {
   popularMovies: [],
   upcomingMovies: [],
   currentMovie: {
+    credits: {
+      cast: [
+        { known_for_department: "", name: "", profile_path: "", character: "" },
+      ],
+      crew: [{ name: "", department: "", profile_path: "", job: "" }],
+    },
     poster_path: "",
     title: "",
     rated: null,
@@ -60,6 +64,34 @@ const defaultStore = {
     similar: [],
   },
   currentShow: {
+    full_credits: {
+      cast: [
+        {
+          known_for_department: "",
+          name: "",
+          profile_path: "",
+          total_episodes_count: "",
+          roles: [{ character: "", episode_count: 0 }],
+        },
+      ],
+      crew: [
+        {
+          known_for_department: "",
+          name: "",
+          profile_path: "",
+          department: "",
+          total_episodes_count: "",
+          jobs: [{ job: "", episode_count: 0 }],
+        },
+      ],
+    },
+    credits: {
+      cast: [
+        { known_for_department: "", name: "", profile_path: "", character: "" },
+      ],
+      crew: [{ name: "", department: "", profile_path: "", job: "" }],
+    },
+    ratings: [{ iso_3166_1: "", rating: "" }],
     poster_path: "",
     name: "",
     rated: null,
@@ -151,7 +183,23 @@ export let moviesReducer = (state = defaultStore, action) => {
       };
     case SET_LATEST_MOVIES:
       return { ...state, latestMovies: action.latestMovies };
+    case SET_SHOW_FULL_CREDITS:
+      return {
+        ...state,
+        currentShow: {
+          ...state.currentShow,
+          full_credits: { crew: action.crew, cast: action.cast },
+        },
+      };
 
+    case SET_MOVIE_FULL_CREDITS:
+      return {
+        ...state,
+        currentMovie: {
+          ...state.currentMovie,
+          full_credits: { crew: action.crew, cast: action.cast },
+        },
+      };
     case SET_TOP_RATED_MOVIES:
       return {
         ...state,
@@ -194,20 +242,6 @@ export let moviesReducer = (state = defaultStore, action) => {
           language: action.language,
         },
       };
-    case SET_DETAILS_SHOW:
-      return {
-        ...state,
-        currentShow: {
-          ...state.currentShow,
-          awards: action.awards,
-          director: action.director,
-          writer: action.writer,
-          actors: action.actors,
-          rated: action.rated,
-          language: action.language,
-          year: action.year,
-        },
-      };
 
     case SET_CURRENT_MOVIE:
       return {
@@ -220,10 +254,8 @@ export let moviesReducer = (state = defaultStore, action) => {
           reviews: action.reviews,
           external_ids: action.socials,
           similar: action.similar,
+          credits: action.credits,
         },
-        // genres: action.genres,
-        // keywords: action.keywords,
-        // socials: action.socials,
       };
     case SET_CURRENT_SHOW:
       return {
@@ -235,6 +267,8 @@ export let moviesReducer = (state = defaultStore, action) => {
           external_ids: action.external_ids,
           similar: action.similar,
           reviews: action.reviews,
+          ratings: action.ratings,
+          credits: action.credits,
         },
       };
 
@@ -279,13 +313,6 @@ export let moviesReducer = (state = defaultStore, action) => {
           currentPage: action.currentPage,
         },
       };
-    case SET_SIMILAR:
-      return { ...state, similar: action.similar };
-    case SET_SHOW_ID:
-      return {
-        ...state,
-        currentShow: { ...state.currentShow, imdbID: action.id },
-      };
     default:
       return state;
   }
@@ -294,16 +321,6 @@ export let moviesReducer = (state = defaultStore, action) => {
 export const setLatestMovies = (payload) => ({
   type: SET_LATEST_MOVIES,
   latestMovies: payload,
-});
-
-export const setShowId = (payload) => ({
-  type: SET_SHOW_ID,
-  id: payload,
-});
-
-export const setSimilarMovies = (payload) => ({
-  type: SET_SIMILAR,
-  similar: payload,
 });
 
 export const setMoviesFetch = (payload) => ({
@@ -335,11 +352,6 @@ export const setSearchTv = (payload) => ({
   totalPages: payload.totalPages,
 });
 
-export const setReviews = (payload) => ({
-  type: SET_REVIEWS,
-  reviews: payload,
-});
-
 export const setCurrentMovie = (payload) => ({
   type: SET_CURRENT_MOVIE,
   currentMovie: payload.currentMovie,
@@ -347,6 +359,7 @@ export const setCurrentMovie = (payload) => ({
   socials: payload.socials,
   reviews: payload.reviews,
   similar: payload.similar,
+  credits: payload.credits,
 });
 
 export const setCurrentShow = (payload) => ({
@@ -356,17 +369,8 @@ export const setCurrentShow = (payload) => ({
   external_ids: payload.socials,
   reviews: payload.reviews,
   similar: payload.similar,
-});
-
-export const setShowDetails = (payload) => ({
-  type: SET_DETAILS_SHOW,
-  awards: payload.awards,
-  director: payload.director,
-  writer: payload.writer,
-  actors: payload.actors,
-  rated: payload.rated,
-  language: payload.language,
-  year: payload.year,
+  ratings: payload.ratings,
+  credits: payload.credits,
 });
 
 export const setDetails = (payload) => ({
@@ -404,4 +408,16 @@ export const setCurrentSeason = (payload) => ({
   poster_path: payload.poster_path,
   air_date: payload.air_date,
   season_number: payload.season_number,
+});
+
+export const setShowFullCredits = (payload) => ({
+  type: SET_SHOW_FULL_CREDITS,
+  cast: payload.cast,
+  crew: payload.crew,
+});
+
+export const setMovieFullCredits = (payload) => ({
+  type: SET_MOVIE_FULL_CREDITS,
+  cast: payload.cast,
+  crew: payload.crew,
 });

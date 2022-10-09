@@ -64,12 +64,14 @@ export const SeasonsPage = () => {
                 {season.episode_count} episodes{" "}
               </h3>
               <p className={classes.seasonDescription}>
-                {" "}
-                {`Season ${
-                  season.season_number
-                } of ${title} premiered on ${get_season_date(
-                  season.air_date
-                )}.`}
+                {season.overview
+                  ? season.overview
+                  : `Season ${
+                      season.season_number
+                    } of ${title} premiered on ${get_season_date(
+                      season.air_date
+                    )}.`}
+                {}
               </p>
             </div>
           </div>

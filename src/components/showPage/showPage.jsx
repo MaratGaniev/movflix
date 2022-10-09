@@ -16,6 +16,7 @@ import SmallCarousel from "../carousels/smallCarousel/smallCarousel";
 import { get_date } from "./../../helpers/prettifyDate";
 import { get_season_date } from "./../../helpers/prettifyDate";
 import { get_show_duration } from "./../../helpers/getShowDuration";
+import { CastCarousel } from "../carousels/castCarousel/castCarousel";
 
 export const ShowPage = () => {
   let dispatch = useDispatch();
@@ -60,6 +61,12 @@ export const ShowPage = () => {
               <div className={classes.about}>
                 <h3 className={classes.movieTitle}>{currentShow.name}</h3>
                 <div className={classes.misc}>
+                  {currentShow.ratings.length === 0 ? null : (
+                    <h4 className={classes.ageRating}>
+                      {currentShow.ratings.map((rating) => rating.rating)}
+                    </h4>
+                  )}
+
                   <h4 className={classes.releaseDate}>
                     {get_date(currentShow.first_air_date)}
                   </h4>
@@ -118,47 +125,53 @@ export const ShowPage = () => {
 
           <div className={classes.details}>
             <div>
-              <h3 className={classes.lastSeasonHeader}>Last season</h3>
-              <div className={classes.lastSeason}>
-                <img
-                  className={classes.lastSeasonImage}
-                  src={`https://image.tmdb.org/t/p/original${lastSeason.poster_path}`}
-                  alt={""}
-                />
-                <div className={classes.lastSeasonInfo}>
-                  <div>
-                    <h4 className={classes.lastSeasonTitle}>
-                      {lastSeason.name}
-                    </h4>
-                    <div className={classes.lastSeasonMisc}>
-                      <h3 className={classes.lastSeasonYear}>
-                        {lastSeason.air_date
-                          ? lastSeason.air_date.slice(0, 4)
-                          : "No year"}
-                      </h3>
-                      <h3 className={classes.lastSeasonEpisodes}>
-                        {lastSeason.episode_count} episodes
-                      </h3>
+              <div className={classes.lastSeasonBlock}>
+                <h3 className={classes.lastSeasonHeader}>Last season</h3>
+                <div className={classes.lastSeason}>
+                  <img
+                    className={classes.lastSeasonImage}
+                    src={`https://image.tmdb.org/t/p/original${lastSeason.poster_path}`}
+                    alt={""}
+                  />
+                  <div className={classes.lastSeasonInfo}>
+                    <div>
+                      <h4 className={classes.lastSeasonTitle}>
+                        {lastSeason.name}
+                      </h4>
+                      <div className={classes.lastSeasonMisc}>
+                        <h3 className={classes.lastSeasonYear}>
+                          {lastSeason.air_date
+                            ? lastSeason.air_date.slice(0, 4)
+                            : "No year"}
+                        </h3>
+                        <h3 className={classes.lastSeasonEpisodes}>
+                          {lastSeason.episode_count} episodes
+                        </h3>
+                      </div>
                     </div>
-                  </div>
 
-                  <p className={classes.lastSeasonOverview}>
-                    {lastSeason.overview
-                      ? lastSeason.overview
-                      : `Season ${lastSeason.season_number} of ${
-                          currentShow.name
-                        } premiered on ${get_season_date(
-                          lastSeason.air_date
-                        )}.`}
-                  </p>
+                    <p className={classes.lastSeasonOverview}>
+                      {lastSeason.overview
+                        ? lastSeason.overview
+                        : `Season ${lastSeason.season_number} of ${
+                            currentShow.name
+                          } premiered on ${get_season_date(
+                            lastSeason.air_date
+                          )}.`}
+                    </p>
+                  </div>
                 </div>
+                <button
+                  className={classes.lastSeasonFooter}
+                  onClick={() => navigate(`${location.pathname}/seasons`)}
+                >
+                  View all seasons
+                </button>
               </div>
-              <button
-                className={classes.lastSeasonFooter}
-                onClick={() => navigate(`${location.pathname}/seasons`)}
-              >
-                View all seasons
-              </button>
+              <div className={classes.castBlock}>
+                <h3 className={classes.castHeader}>The cast of the series</h3>
+                <CastCarousel items={currentShow.credits.cast.slice(0, 11)} />
+              </div>
             </div>
 
             <DetailsBlock
@@ -178,7 +191,7 @@ export const ShowPage = () => {
 
           <SmallCarousel
             items={currentShow.similar}
-            title="Similar"
+            title="Similar shows"
             variant="light"
             type="show"
             autoplay={false}

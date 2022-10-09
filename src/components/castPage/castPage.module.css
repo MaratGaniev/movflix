@@ -1,0 +1,116 @@
+.header {
+  display: flex;
+  gap: 20px;
+  background-color: #03213a;
+  height: 120px;
+  margin-bottom: 20px;
+  padding-left: 250px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.container {
+  overflow: hidden;
+}
+.headerTitle {
+  font-weight: 700;
+  font-family: "Poppins", serif;
+  color: white;
+  margin-top: 10px;
+}
+.backButton {
+  font-family: "Poppins", serif;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.backButton:hover {
+  opacity: 0.6;
+}
+
+.headerImage {
+  width: 57px;
+  height: 87px;
+}
+
+.items {
+  width: 100%;
+  margin-left: 250px;
+  margin-top: 40px;
+  display: flex;
+  gap: 50px;
+}
+.crewBlock {
+  flex-grow: 1;
+}
+.castBlock {
+  flex-shrink: 1;
+}
+
+.castHeader,
+.crewHeader {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.grayText {
+  color: #656565;
+  font-size: 0.9em;
+  margin-left: 10px;
+}
+.castImage {
+  width: 66px;
+  height: 80px;
+}
+.castItem {
+  display: flex;
+  gap: 20px;
+}
+.role {
+  font-size: 1em;
+}
+
+.castItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.castName {
+  text-align: left;
+  margin-bottom: 0px;
+  font-size: 1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s all ease;
+}
+.castName:hover {
+  opacity: 0.5;
+}
+.roles {
+  margin-top: 0px;
+}
+.castInfo {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+.roles,
+.jobs {
+  display: inline;
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+}
+
+.role {
+  display: inline;
+}
+.role:after {
+  content: ", ";
+}
+.role:last-child:after {
+  content: "";
+}

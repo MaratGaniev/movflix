@@ -17,8 +17,9 @@
   font-family: "Poppins", serif;
 }
 .seasonImage {
-  width: 130px;
-  height: 195px;
+  width: 150px;
+  height: 215px;
+
   border-bottom-left-radius: 8px;
   border-top-left-radius: 8px;
 }

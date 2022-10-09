@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./results.module.css";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchResults, getShowId } from "./../../../http";
+import { getSearchResults } from "./../../../http";
 import { useEffect } from "react";
 import poster_placeholder from "./../../../assets/no_poster.png";
 import { get_persons_popularity } from "./../../../helpers/prettifyPopularity";
@@ -78,7 +78,9 @@ export const Results = () => {
           </div>
         </div>
       ) : isFetching === true ? (
-        <Preloader />
+        <div>
+          <Preloader />
+        </div>
       ) : !isFetching && movies.length === 0 ? (
         <h1 className={classes.sectionError}>No movies found :(</h1>
       ) : null}
@@ -93,7 +95,6 @@ export const Results = () => {
                   className={classes.itemImage}
                   alt={show.title}
                   onClick={() => {
-                    dispatch(getShowId(api_key, show.id));
                     navigate(`/movflix/shows/page/${show.id}/${show.name}`);
                   }}
                   src={
