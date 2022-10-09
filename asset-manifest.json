@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/movflix/static/css/main.c499318b.css",
-    "main.js": "/movflix/static/js/main.2608b7ab.js",
+    "main.css": "/movflix/static/css/main.064fbd41.css",
+    "main.js": "/movflix/static/js/main.2f661b5a.js",
     "static/media/background.jpg": "/movflix/static/media/background.33ad29f87c57829f520f.jpg",
     "index.html": "/movflix/index.html",
     "static/media/arrow-right-circle.svg": "/movflix/static/media/arrow-right-circle.1b39bf9a300a0de64012.svg",
     "static/media/arrow-left-circle.svg": "/movflix/static/media/arrow-left-circle.c0fcdf1400ca95be6106.svg",
-    "main.c499318b.css.map": "/movflix/static/css/main.c499318b.css.map",
-    "main.2608b7ab.js.map": "/movflix/static/js/main.2608b7ab.js.map"
+    "main.064fbd41.css.map": "/movflix/static/css/main.064fbd41.css.map",
+    "main.2f661b5a.js.map": "/movflix/static/js/main.2f661b5a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c499318b.css",
-    "static/js/main.2608b7ab.js"
+    "static/css/main.064fbd41.css",
+    "static/js/main.2f661b5a.js"
   ]
 }
