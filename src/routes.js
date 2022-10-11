@@ -53,7 +53,7 @@ export const routes = [
     component: ResultsExpanded,
   },
   {
-    path: "/movflix/type/*",
+    path: "/movflix/categories/:content_type/:category/*",
     component: TypeExpanded,
   },
 ];

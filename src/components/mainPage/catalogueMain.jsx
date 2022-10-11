@@ -12,9 +12,7 @@ import { useNavigate } from "react-router";
 export const CatalogueMain = () => {
   const api_key = process.env.REACT_APP_MOVIES_API_KEY;
   const dispatch = useDispatch();
-  let isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  let isFetching = useSelector((state) => state.movies.isFetching);
 
   useEffect(() => {
     dispatch(getMainPageMovies(api_key));

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import classes from "./seasonsPage.module.css";
 import { get_season_date } from "./../../helpers/prettifyDate";
 import { useLocation, useNavigate } from "react-router";
+
 export const SeasonsPage = () => {
   let seasons = useSelector((state) => state.movies.currentShow.seasons);
   let navigate = useNavigate();

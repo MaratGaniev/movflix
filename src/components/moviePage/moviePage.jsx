@@ -17,20 +17,19 @@ import { get_duration } from "../../helpers/getMovieDuration";
 import { get_date } from "../../helpers/prettifyDate";
 import poster_placeholder from "./../../assets/no_poster.png";
 import { CastCarousel } from "../carousels/castCarousel/castCarousel";
+import { useNavigate } from "react-router";
 
 export const MoviePage = () => {
   let params = useParams()["*"].split("/");
   let search_title = params[1];
   let movie_id = params[0];
-
+  let navigate = useNavigate();
   const currentMovie = useSelector((state) => state.movies.currentMovie);
 
   const api_key = process.env.REACT_APP_MOVIES_API_KEY;
   const omdb_api_key = "aee3d546";
   const dispatch = useDispatch();
-  let isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  let isFetching = useSelector((state) => state.movies.isFetching);
   useEffect(() => {
     dispatch(getCurrentMovie(api_key, movie_id, search_title, omdb_api_key));
   }, [movie_id, search_title, api_key, dispatch]);
@@ -148,6 +147,11 @@ export const MoviePage = () => {
               title="Similar"
               variant="light"
               autoplay={false}
+              onClick={() =>
+                navigate(
+                  `/movflix/categories/movies/similar/${currentMovie.id}`
+                )
+              }
             />
           )}
         </div>

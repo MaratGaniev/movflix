@@ -1,3 +1,4 @@
+import { EaselFill } from "react-bootstrap-icons";
 import {
   setLatestMovies,
   setPopularMovies,
@@ -12,6 +13,7 @@ import {
   setCurrentShow,
   setCurrentSeason,
   setShowFullCredits,
+  setByCategory,
 } from "./store/reducers/moviesReducer";
 
 export const getMainPageMovies = (API_KEY) => async (dispatch) => {
@@ -296,3 +298,120 @@ export const getShowSearchCrew = (API_KEY, tv_id) => async (dispatch) => {
     });
   dispatch(setMoviesFetch(false));
 };
+
+export const getByCategory =
+  (API_KEY, currentPage, category, content_type, id) => async (dispatch) => {
+    dispatch(setMoviesFetch(true));
+
+    if (content_type === "movies") {
+      if (category === "upcoming") {
+        await fetch(
+          `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      } else if (category === "top rated") {
+        await fetch(
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      } else if (category === "popular") {
+        await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      } else if (category === "similar") {
+        await fetch(
+          `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      }
+    } else if (content_type === "shows") {
+      if (category === "latest") {
+        await fetch(
+          `https://api.themoviedb.org/3/tv/on_the_air?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      } else if (category === "top rated") {
+        await fetch(
+          `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      } else if (category === "popular") {
+        await fetch(
+          `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      } else if (category === "similar") {
+        await fetch(
+          `https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
+      }
+    }
+
+    dispatch(setMoviesFetch(false));
+  };

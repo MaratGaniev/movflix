@@ -15,9 +15,7 @@ const EpisodesPage = () => {
     (state) => state.movies.currentShow.currentSeason
   );
   const api_key = process.env.REACT_APP_MOVIES_API_KEY;
-  let isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  let isFetching = useSelector((state) => state.movies.isFetching);
   useEffect(() => {
     dispatch(getSearchEpisodes(api_key, params.id, params.season));
   }, [api_key, dispatch, params.id, params.season]);

@@ -30,9 +30,7 @@ export const ShowPage = () => {
 
   const api_key = process.env.REACT_APP_MOVIES_API_KEY;
 
-  let isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  let isFetching = useSelector((state) => state.movies.isFetching);
 
   useEffect(() => {
     dispatch(getCurrentShow(api_key, show_id));
@@ -195,6 +193,9 @@ export const ShowPage = () => {
             variant="light"
             type="show"
             autoplay={false}
+            onClick={() =>
+              navigate(`/movflix/categories/shows/similar/${currentShow.id}`)
+            }
           />
         </div>
       )}

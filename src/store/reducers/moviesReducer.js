@@ -6,7 +6,7 @@ const SET_POPULAR_MOVIES = "SET_POPULAR_MOVIES";
 const SET_UPCOMING_MOVIES = "SET_UPCOMING_MOVIES";
 const SET_CURRENT_MOVIE = "SET_CURRENT_MOVIE";
 const SET_CURRENT_SHOW = "SET_CURRENT_SHOW";
-const SET_SEARCH_FETCHING = "SET_SEARCH_FETCHING";
+const SET_FETCHING = "SET_FETCHING";
 const SET_SEARCH_MOVIES = "SET_SEARCH_MOVIES";
 const SET_SEARCH_TV = "SET_SEARCH_TV";
 const SET_SEARCH_PERSON = "SET_SEARCH_PERSON";
@@ -15,10 +15,12 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_CURRENT_SEASON = "SET_CURRENT_SEASON";
 const SET_SHOW_FULL_CREDITS = "SET_SHOW_FULL_CREDITS";
 const SET_MOVIE_FULL_CREDITS = "SET_MOVIE_FULL_CREDITS";
+const SET_CATEGORISED = "SET_BY_CATEGORY";
 
 const defaultStore = {
   isError: false,
   latestMovies: [],
+  byCategory: { results: [], totalPages: 0 },
   topMovies: [],
   popularMovies: [],
   upcomingMovies: [],
@@ -152,7 +154,7 @@ const defaultStore = {
       season_number: "",
     },
   },
-
+  isFetching: false,
   searchResults: {
     currentPage: 1,
     totalPages: "",
@@ -161,7 +163,6 @@ const defaultStore = {
     persons: [],
     shows: [],
     keywords: [],
-    isFetching: false,
   },
 };
 
@@ -183,6 +184,11 @@ export let moviesReducer = (state = defaultStore, action) => {
       };
     case SET_LATEST_MOVIES:
       return { ...state, latestMovies: action.latestMovies };
+    case SET_CATEGORISED:
+      return {
+        ...state,
+        byCategory: { results: action.results, totalPages: action.totalPages },
+      };
     case SET_SHOW_FULL_CREDITS:
       return {
         ...state,
@@ -282,10 +288,10 @@ export let moviesReducer = (state = defaultStore, action) => {
           totalPages: action.totalPages,
         },
       };
-    case SET_SEARCH_FETCHING:
+    case SET_FETCHING:
       return {
         ...state,
-        searchResults: { ...state.searchResults, isFetching: action.fetch },
+        isFetching: action.fetch,
       };
     case SET_SEARCH_TV:
       return {
@@ -324,7 +330,7 @@ export const setLatestMovies = (payload) => ({
 });
 
 export const setMoviesFetch = (payload) => ({
-  type: SET_SEARCH_FETCHING,
+  type: SET_FETCHING,
   fetch: payload,
 });
 
@@ -386,6 +392,12 @@ export const setDetails = (payload) => ({
 export const setTopMovies = (payload) => ({
   type: SET_TOP_RATED_MOVIES,
   topMovies: payload.topMovies,
+  totalPages: payload.totalPages,
+});
+
+export const setByCategory = (payload) => ({
+  type: SET_CATEGORISED,
+  results: payload.results,
   totalPages: payload.totalPages,
 });
 

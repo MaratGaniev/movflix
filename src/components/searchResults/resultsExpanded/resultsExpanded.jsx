@@ -20,9 +20,7 @@ import LazyLoad from "react-lazyload";
 export const ResultsExpanded = () => {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  let isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  let isFetching = useSelector((state) => state.movies.isFetching);
   let currentPage = useSelector(
     (state) => state.movies.searchResults.currentPage
   );

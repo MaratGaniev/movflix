@@ -5,11 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import classes from "./typeExpanded.module.css";
 import poster_placeholder from "./../../assets/no_poster.png";
 
-import {
-  getPopularMovies,
-  getTopMovies,
-  getUpcomingMovies,
-} from "./../../http";
+import { getByCategory } from "./../../http";
 import { setCurrentPage } from "./../../store/reducers/moviesReducer";
 import { useDispatch } from "react-redux";
 import { createPages } from "./../../helpers/pagesCreator";
@@ -19,43 +15,35 @@ import LazyLoad from "react-lazyload";
 export const TypeExpanded = () => {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  let isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  let isFetching = useSelector((state) => state.movies.isFetching);
   let currentPage = useSelector(
     (state) => state.movies.searchResults.currentPage
   );
-  let type = useParams()["*"];
+  let params = useParams();
+  let id = params["*"];
 
-  let items;
-  if (type === "popular") {
-    items = useSelector((state) => state.movies.popularMovies);
-  } else if (type === "top_rated") {
-    items = useSelector((state) => state.movies.topMovies);
-  } else if (type === "upcoming") {
-    items = useSelector((state) => state.movies.upcomingMovies);
-  }
-
+  let items = useSelector((state) => state.movies.byCategory.results);
   const api_key = process.env.REACT_APP_MOVIES_API_KEY;
-  let totalPages = useSelector(
-    (state) => state.movies.searchResults.totalPages
-  );
+  let totalPages = useSelector((state) => state.movies.byCategory.totalPages);
   useEffect(() => {
-    if (type === "popular") {
-      dispatch(getPopularMovies(api_key, currentPage));
-    } else if (type === "top_rated") {
-      dispatch(getTopMovies(api_key, currentPage));
-    } else if (type === "upcoming") {
-      dispatch(getUpcomingMovies(api_key, currentPage));
-    }
-  }, [api_key, currentPage, dispatch, type]);
-  let pages = [];
+    dispatch(
+      getByCategory(
+        api_key,
+        currentPage,
+        params.category,
+        params.content_type,
+        id | null
+      )
+    );
+  }, [currentPage, params.category, params.content_type]);
 
+  let pages = [];
   createPages(pages, totalPages, currentPage);
-  debugger;
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>More results for {type} movies</h1>
+      <h1 className={classes.title}>
+        More results for {params.category} {params.content_type}{" "}
+      </h1>
       <div className={classes.pages}>
         {pages.map((page) => (
           <button
@@ -82,7 +70,9 @@ export const TypeExpanded = () => {
                 <img
                   onClick={() =>
                     navigate(
-                      `/react-training/movies/movies/page/${item.id}/${item.title}`
+                      params.content_type === "movies"
+                        ? `/movflix/movies/page/${item.id}/${item.title}`
+                        : `/movflix/shows/page/${item.id}/${item.name}`
                     )
                   }
                   className={classes.itemImage}
@@ -95,7 +85,9 @@ export const TypeExpanded = () => {
                 />
               </LazyLoad>
 
-              <h3 className={classes.itemTitle}>{item.title}</h3>
+              <h3 className={classes.itemTitle}>
+                {params.content_type === "movies" ? item.title : item.name}
+              </h3>
 
               <div>
                 <div className={classes.itemInfo}>
@@ -105,8 +97,10 @@ export const TypeExpanded = () => {
                       : "No rating"}
                   </h3>
                   <h3 className={classes.itemYear}>
-                    {item.release_date
+                    {item.release_date && params.content_type === "movies"
                       ? item.release_date.slice(0, 4)
+                      : item.first_air_date && params.content_type === "shows"
+                      ? item.first_air_date.slice(0, 4)
                       : "No year"}
                   </h3>
                   <h3 className={classes.itemNsfw}>

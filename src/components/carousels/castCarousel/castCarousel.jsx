@@ -11,7 +11,7 @@ export const CastCarousel = (props) => {
     infinite: false,
     speed: 500,
     slidesToShow: 7,
-    slidesToScroll: 3,
+    swipeToSlide: true,
     arrows: false,
     className: classes.slider,
   };
@@ -24,6 +24,7 @@ export const CastCarousel = (props) => {
           return (
             <div className={classes.sliderElement}>
               <img
+                draggable={false}
                 className={classes.sliderImage}
                 src={`https://image.tmdb.org/t/p/original${item.profile_path}`}
                 alt={""}

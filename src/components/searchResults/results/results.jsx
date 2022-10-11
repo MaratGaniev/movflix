@@ -13,9 +13,7 @@ export const Results = () => {
   const api_key = process.env.REACT_APP_MOVIES_API_KEY;
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const isFetching = useSelector(
-    (state) => state.movies.searchResults.isFetching
-  );
+  const isFetching = useSelector((state) => state.movies.isFetching);
 
   useEffect(() => {
     dispatch(getSearchResults(api_key, query));
@@ -40,7 +38,7 @@ export const Results = () => {
                     navigate(`/movflix/movies/page/${movie.id}/${movie.title}`)
                   }
                   className={classes.itemImage}
-                  alt={movie.title}
+                  alt={" "}
                   src={
                     movie.poster_path !== null
                       ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
@@ -93,7 +91,7 @@ export const Results = () => {
               <div className={classes.item}>
                 <img
                   className={classes.itemImage}
-                  alt={show.title}
+                  alt={" "}
                   onClick={() => {
                     navigate(`/movflix/shows/page/${show.id}/${show.name}`);
                   }}
@@ -152,7 +150,7 @@ export const Results = () => {
                       ? `https://image.tmdb.org/t/p/original${person.profile_path}`
                       : poster_placeholder
                   }
-                  alt={""}
+                  alt={" "}
                 />
                 <h3 className={classes.itemTitle}>{person.name}</h3>
                 <div className={classes.itemInfo}>

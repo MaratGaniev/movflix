@@ -3,6 +3,7 @@ import classes from "./castPage.module.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import person_placeholder from "./../../assets/person_placeholder.jpg";
+import { Steam } from "react-bootstrap-icons";
 
 const CastPageMovie = () => {
   let navigate = useNavigate();
@@ -12,6 +13,7 @@ const CastPageMovie = () => {
   let headerImage = useSelector(
     (state) => state.movies.currentMovie.poster_path
   );
+  let isFetching = useSelector((state) => state.movies.isFetching);
 
   return (
     <div className={classes.container}>
