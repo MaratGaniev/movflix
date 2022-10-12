@@ -21,9 +21,9 @@ const defaultStore = {
   isError: false,
   latestMovies: [],
   byCategory: { results: [], totalPages: 0 },
-  topMovies: [],
-  popularMovies: [],
-  upcomingMovies: [],
+  topMovies: [{ genre_ids: [20], release_date: "" }],
+  popularMovies: [{ genre_ids: [20], release_date: "" }],
+  upcomingMovies: [{ genre_ids: [20], release_date: "" }],
   currentMovie: {
     credits: {
       cast: [

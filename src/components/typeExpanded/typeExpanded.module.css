@@ -51,14 +51,13 @@
 
 .page {
   border: none;
-  --size: 40px;
-  --margin: 3px;
-  margin: 0 var(--margin);
+
+  margin: 0 3px;
   border-radius: 6px;
   background: #202020;
   max-width: auto;
-  min-width: var(--size);
-  height: var(--size);
+  min-width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;

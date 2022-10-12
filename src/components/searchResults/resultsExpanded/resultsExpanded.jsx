@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { createPages } from "./../../../helpers/pagesCreator";
 import Preloader from "./../../decorative/preloader/preloader";
 import LazyLoad from "react-lazyload";
+import { Header } from "../../header/header";
 
 export const ResultsExpanded = () => {
   let navigate = useNavigate();
@@ -39,41 +40,42 @@ export const ResultsExpanded = () => {
   );
   useEffect(() => {
     params[1] === "movies"
-      ? dispatch(getSearchMovies(api_key, query, currentPage))
+      ? dispatch(getSearchMovies(api_key, query, currentPage | 1))
       : params[1] === "shows"
-      ? dispatch(getSearchTv(api_key, query, currentPage))
-      : dispatch(getSearchPersons(api_key, query, currentPage));
+      ? dispatch(getSearchTv(api_key, query, currentPage | 1))
+      : dispatch(getSearchPersons(api_key, query, currentPage | 1));
   }, [currentPage]);
   let pages = [];
 
   createPages(pages, totalPages, currentPage);
 
   return (
-    <div className={classes.container}>
-      <h1 className={classes.title}>Search results for {query} </h1>
-      <div className={classes.pages}>
-        {pages.map((page) => (
-          <button
-            className={
-              page === currentPage
-                ? `${classes.page} ${classes.active}`
-                : classes.page
-            }
-            onClick={() => {
-              dispatch(setCurrentPage(page));
-            }}
-          >
-            {page}
-          </button>
-        ))}
-      </div>
-      {isFetching ? (
-        <Preloader />
-      ) : (
-        <div className={classes.items}>
-          {items.map((item) => (
-            <div className={classes.item}>
-              <LazyLoad once>
+    <>
+      <Header />
+      <div className={classes.container}>
+        <h1 className={classes.title}>Search results for {query} </h1>
+        <div className={classes.pages}>
+          {pages.map((page) => (
+            <button
+              className={
+                page === currentPage
+                  ? `${classes.page} ${classes.active}`
+                  : classes.page
+              }
+              onClick={() => {
+                dispatch(setCurrentPage(page));
+              }}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+        {isFetching ? (
+          <Preloader />
+        ) : (
+          <div className={classes.items}>
+            {items.map((item) => (
+              <div className={classes.item}>
                 <img
                   onClick={() =>
                     params[1] === "movies"
@@ -94,49 +96,49 @@ export const ResultsExpanded = () => {
                       : poster_placeholder
                   }
                 />
-              </LazyLoad>
 
-              <h3 className={classes.itemTitle}>
-                {params[1] === "movies" ? item.title : item.name}
-              </h3>
-              {params[1] !== "persons" ? (
-                <div>
-                  <div className={classes.itemInfo}>
-                    <h3 className={classes.itemPopularity}>
-                      {item.vote_average !== 0
-                        ? `${item.vote_average}/10`
-                        : "No rating"}
-                    </h3>
-                    <h3 className={classes.itemYear}>
-                      {params[1] === "movies" && item.release_date
-                        ? item.release_date.slice(0, 4)
-                        : params[1] === "shows" && item.first_air_date
-                        ? item.first_air_date.slice(0, 4)
-                        : "No year"}
-                    </h3>
-                    <h3 className={classes.itemNsfw}>
-                      {item.adult ? "18+" : "16+"}
-                    </h3>
+                <h3 className={classes.itemTitle}>
+                  {params[1] === "movies" ? item.title : item.name}
+                </h3>
+                {params[1] !== "persons" ? (
+                  <div>
+                    <div className={classes.itemInfo}>
+                      <h3 className={classes.itemPopularity}>
+                        {item.vote_average !== 0
+                          ? `${item.vote_average}/10`
+                          : "No rating"}
+                      </h3>
+                      <h3 className={classes.itemYear}>
+                        {params[1] === "movies" && item.release_date
+                          ? item.release_date.slice(0, 4)
+                          : params[1] === "shows" && item.first_air_date
+                          ? item.first_air_date.slice(0, 4)
+                          : "No year"}
+                      </h3>
+                      <h3 className={classes.itemNsfw}>
+                        {item.adult ? "18+" : "16+"}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div>
-                  <div className={`${classes.itemInfo} ${classes.job}`}>
-                    <h3
-                      className={classes.itemPopularity}
-                    >{`Popularity: ${get_persons_popularity(
-                      item.popularity
-                    )}%`}</h3>
-                    <h3 className={classes.itemJob}>
-                      {item.known_for_department}
-                    </h3>
+                ) : (
+                  <div>
+                    <div className={`${classes.itemInfo} ${classes.job}`}>
+                      <h3
+                        className={classes.itemPopularity}
+                      >{`Popularity: ${get_persons_popularity(
+                        item.popularity
+                      )}%`}</h3>
+                      <h3 className={classes.itemJob}>
+                        {item.known_for_department}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 };

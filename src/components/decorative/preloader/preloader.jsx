@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./preloader.module.css";
 
-export default function Preloader() {
+export default function Preloader(props) {
+  let { variant } = props;
   return (
     <div className={classes.fetching}>
       <svg viewBox="0 0 100 100">
@@ -16,7 +17,16 @@ export default function Preloader() {
             />
           </filter>
         </defs>
-        <circle className={classes.spinner} cx="50" cy="50" r="45" />
+        <circle
+          className={
+            variant === "white"
+              ? `${classes.spinner} ${classes.white}`
+              : classes.spinner
+          }
+          cx="50"
+          cy="50"
+          r="45"
+        />
       </svg>
     </div>
   );

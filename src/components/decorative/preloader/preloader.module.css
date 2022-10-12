@@ -34,3 +34,6 @@
   stroke-width: 7px;
   stroke-linecap: round;
 }
+.white {
+  stroke: white;
+}

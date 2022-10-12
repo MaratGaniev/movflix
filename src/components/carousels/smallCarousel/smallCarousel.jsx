@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { BlueButton } from "./../../decorative/buttons/buttons";
+import { genres } from "../../../genres";
 
 export default function SmallCarousel(props) {
   const { items, title, variant, onClick, type, autoplay } = props;
@@ -59,6 +60,11 @@ export default function SmallCarousel(props) {
                     ? classes.sliderTitleLight
                     : classes.sliderTitle
                 }
+                onClick={() =>
+                  type === "show"
+                    ? navigate(`/movflix/shows/page/${item.id}/${item.name}`)
+                    : navigate(`/movflix/movies/page/${item.id}/${item.title}`)
+                }
               >
                 {type === "show" ? item.name : item.title}
               </h1>
@@ -71,9 +77,13 @@ export default function SmallCarousel(props) {
                     ? item.first_air_date.slice(0, 4)
                     : item.release_date.slice(0, 4)}
                 </h3>
-                <h3 className={classes.sliderNsfw}>
-                  {item.adult ? "18+" : "16+"}
-                </h3>
+                <h3 className={classes.sliderNsfw}>{item.vote_count} votes</h3>
+              </div>
+
+              <div className={classes.genres}>
+                {item.genre_ids.slice(0, 3).map((genre) => (
+                  <span className={classes.genre}>{genres[genre]}</span>
+                ))}
               </div>
             </div>
           );

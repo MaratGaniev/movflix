@@ -30,6 +30,10 @@
   font-weight: 400;
   margin-top: 10px;
   width: 300px;
+  cursor: pointer;
+}
+.sliderTitle:hover {
+  opacity: 0.5;
 }
 
 .sliderInfo {
@@ -58,4 +62,19 @@
   width: 100px;
   height: 4px;
   margin-top: 10px;
+}
+.genres {
+  list-style: none;
+
+  display: flex;
+  max-width: 400px;
+  flex-wrap: wrap;
+  column-gap: 10px;
+}
+.genre {
+  color: #a3a3a3;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  display: inline;
 }

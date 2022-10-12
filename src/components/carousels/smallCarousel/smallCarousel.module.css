@@ -25,19 +25,26 @@
 }
 .sliderTitle {
   padding-left: 5px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
   margin-top: 10px;
   width: 250px;
+  cursor: pointer;
+}
+.sliderTitle:hover {
+  opacity: 0.5;
 }
 
 .sliderTitleLight {
   padding-left: 5px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   margin-top: 10px;
   width: 250px;
   color: black;
+}
+.sliderTitleLight:hover {
+  opacity: 0.5;
 }
 
 .sliderInfo {
@@ -81,4 +88,20 @@
   width: 100px;
   height: 4px;
   margin-top: 10px;
+}
+
+.genres {
+  list-style: none;
+  padding-left: 5px;
+  display: flex;
+  max-width: 200px;
+  flex-wrap: wrap;
+  column-gap: 10px;
+}
+.genre {
+  color: #a3a3a3;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  display: inline;
 }
