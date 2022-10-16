@@ -155,6 +155,11 @@ export const Results = () => {
                         ? `https://image.tmdb.org/t/p/original${person.profile_path}`
                         : poster_placeholder
                     }
+                    onClick={() => {
+                      navigate(
+                        `/movflix/persons/page/${person.id}/${person.name}`
+                      );
+                    }}
                     alt={" "}
                   />
                   <h3 className={classes.itemTitle}>{person.name}</h3>

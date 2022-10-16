@@ -16,11 +16,11 @@ const SET_CURRENT_SEASON = "SET_CURRENT_SEASON";
 const SET_SHOW_FULL_CREDITS = "SET_SHOW_FULL_CREDITS";
 const SET_MOVIE_FULL_CREDITS = "SET_MOVIE_FULL_CREDITS";
 const SET_CATEGORISED = "SET_BY_CATEGORY";
-
+const SET_CURRENT_PERSON = "SET_CURRENT_PERSON";
 const defaultStore = {
   isError: false,
   latestMovies: [],
-  byCategory: { results: [], totalPages: 0 },
+  byCategory: { results: [{}], totalPages: 0 },
   topMovies: [{ genre_ids: [20], release_date: "" }],
   popularMovies: [{ genre_ids: [20], release_date: "" }],
   upcomingMovies: [{ genre_ids: [20], release_date: "" }],
@@ -159,10 +159,47 @@ const defaultStore = {
     currentPage: 1,
     totalPages: "",
     query: "",
-    movies: [],
-    persons: [],
-    shows: [],
-    keywords: [],
+    movies: [{}],
+    persons: [{}],
+    shows: [{}],
+    keywords: [{}],
+  },
+  currentPerson: {
+    also_known_as: [],
+    biography: "",
+    birthday: "",
+    deathday: "",
+    homepage: "",
+    imdb_id: "",
+    known_for_department: "",
+    name: "",
+    place_of_birth: "",
+    popularity: "",
+    profile_path: "",
+    combined_credits: {
+      cast: [
+        { id: 0, title: "", release_date: "", media_type: "", character: "" },
+      ],
+      crew: [
+        {
+          id: 0,
+          title: "",
+          release_date: "",
+          media_type: "",
+          department: "",
+          job: "",
+        },
+      ],
+    },
+    external_ids: {
+      tvrage_id: "",
+      facebook_id: "",
+      instagram_id: "",
+      twitter_id: "",
+    },
+    images: {
+      profiles: [{ aspect_ratio: "", file_path: "" }],
+    },
   },
 };
 
@@ -197,7 +234,11 @@ export let moviesReducer = (state = defaultStore, action) => {
           full_credits: { crew: action.crew, cast: action.cast },
         },
       };
-
+    case SET_CURRENT_PERSON:
+      return {
+        ...state,
+        currentPerson: { ...state.currentPerson, ...action.currentPerson },
+      };
     case SET_MOVIE_FULL_CREDITS:
       return {
         ...state,
@@ -366,6 +407,11 @@ export const setCurrentMovie = (payload) => ({
   reviews: payload.reviews,
   similar: payload.similar,
   credits: payload.credits,
+});
+
+export const setCurrentPerson = (payload) => ({
+  type: SET_CURRENT_PERSON,
+  currentPerson: payload,
 });
 
 export const setCurrentShow = (payload) => ({

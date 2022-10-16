@@ -8,14 +8,16 @@ import { Twitter } from "./../decorative/icons/twitter";
 import classes from "./detailsBlock.module.css";
 
 export const DetailsBlock = (props) => {
-  const { items, variant } = props;
+  const { items, variant, type } = props;
 
   return (
     <div className={classes.wrapper}>
-      <h3 className={classes.title}>Details</h3>
+      <h3 className={classes.title}>
+        {type === "person" ? "Personal information" : "Details"}
+      </h3>
       <div
         className={
-          variant === "show"
+          variant === "show" || type === "person"
             ? `${classes.info} ${classes.forShow}`
             : classes.info
         }
@@ -41,11 +43,49 @@ export const DetailsBlock = (props) => {
             <JustWatch className={classes.social} />
           </div>
 
-          <h3 className={classes.suptitle}>Original name</h3>
-          <p className={classes.subtext}>{items.original_title}</p>
+          {items.original_title !== undefined ? (
+            <div>
+              <h3 className={classes.suptitle}>Original name</h3>
+              <p className={classes.subtext}>{items.original_title}</p>
+            </div>
+          ) : null}
 
-          <h3 className={classes.suptitle}>Status</h3>
-          <p className={classes.subtext}>{items.status}</p>
+          {items.known_by !== undefined ? (
+            <div>
+              <h3 className={classes.suptitle}>Known by</h3>
+              <p className={classes.subtext}>{items.known_by}</p>
+            </div>
+          ) : null}
+          {items.birth_day !== undefined ? (
+            <div>
+              <h3 className={classes.suptitle}>Birth date</h3>
+              <p className={classes.subtext}>{items.birth_day}</p>
+            </div>
+          ) : null}
+          {items.birth_place !== undefined ? (
+            <div>
+              <h3 className={classes.suptitle}>Birth place</h3>
+              <p className={classes.subtext}>{items.birth_place}</p>
+            </div>
+          ) : null}
+          {items.known_as !== undefined ? (
+            <div>
+              <h3 className={classes.suptitle}>Also known as</h3>
+              <ul className={classes.knownAs}>
+                {items.known_as.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {items.status !== undefined ? (
+            <div>
+              {" "}
+              <h3 className={classes.suptitle}>Status</h3>
+              <p className={classes.subtext}>{items.status}</p>
+            </div>
+          ) : null}
 
           {items.languages !== undefined ? (
             <div>
@@ -103,16 +143,18 @@ export const DetailsBlock = (props) => {
             </div>
           ) : null}
         </div>
-        <div className={classes.block}>
-          <h3 className={classes.title}>Keywords</h3>
-          <div className={classes.keywords}>
-            {items.keywords.map((keyword) => (
-              <div key={keyword.id} className={classes.keyword}>
-                {keyword.name}
-              </div>
-            ))}
+        {type === "person" ? null : (
+          <div className={classes.block}>
+            <h3 className={classes.title}>Keywords</h3>
+            <div className={classes.keywords}>
+              {items.keywords.map((keyword) => (
+                <div key={keyword.id} className={classes.keyword}>
+                  {keyword.name}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

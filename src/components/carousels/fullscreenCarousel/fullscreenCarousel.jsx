@@ -25,7 +25,7 @@ export default function FullscreenCarousel(props) {
       <Slider {...settings}>
         {items.map((item) => {
           return (
-            <div className={classes.sliderElement}>
+            <div className={classes.sliderElement} key={item.id}>
               <img
                 className={classes.backgroundImage}
                 src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}

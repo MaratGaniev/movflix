@@ -7,12 +7,12 @@ import { BlueButton } from "../../decorative/buttons/buttons";
 export const CastCarousel = (props) => {
   const { items } = props;
   var settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 7,
     swipeToSlide: true,
-    arrows: false,
+    arrows: true,
     className: classes.slider,
   };
   let location = useLocation();
@@ -32,6 +32,9 @@ export const CastCarousel = (props) => {
               <h3
                 className={classes.sliderName}
                 // onClick={() => navigate(`${location.pathname}/cast_crew`)}
+                onClick={() =>
+                  navigate(`/movflix/persons/page/${item.id}/${item.name}`)
+                }
               >
                 {item.name}
               </h3>

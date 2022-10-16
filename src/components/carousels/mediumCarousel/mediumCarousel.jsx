@@ -1,14 +1,14 @@
 import React from "react";
-import { useState } from "react";
 import classes from "./mediumCarousel.module.css";
 import Slider from "react-slick";
 import { useNavigate } from "react-router";
 import { BlueButton } from "./../../decorative/buttons/buttons";
 import { genres } from "../../../genres";
-import { get_date, get_date_withdot } from "../../../helpers/prettifyDate";
+import { get_date_withdot } from "../../../helpers/prettifyDate";
+import { Poster } from "../../poster/poster";
+
 const MediumCarousel = (props) => {
   const { title, items, onClick } = props;
-  const [isPointMoved, setIsPointMoved] = useState(false);
 
   let navigate = useNavigate();
   var settings = {
@@ -28,25 +28,13 @@ const MediumCarousel = (props) => {
       <Slider {...settings}>
         {items.map((item) => {
           return (
-            <div className={classes.sliderElement}>
-              <img
-                className={classes.sliderThumb}
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                alt={item.title}
-                onPointerDown={() => {
-                  setIsPointMoved(false);
-                }}
-                onPointerMove={() => {
-                  setIsPointMoved(true);
-                }}
-                onPointerUp={() => {
-                  if (isPointMoved) {
-                    setIsPointMoved(true);
-                    return;
-                  }
-
-                  navigate(`/movflix/movies/page/${item.id}/${item.title}`);
-                }}
+            <div className={classes.sliderElement} key={item.id}>
+              <Poster
+                image_path={item.poster_path}
+                onClick={() =>
+                  navigate(`/movflix/movies/page/${item.id}/${item.title}`)
+                }
+                variant="carousel-medium"
               />
               <h1
                 className={classes.sliderTitle}
@@ -67,7 +55,9 @@ const MediumCarousel = (props) => {
               </div>
               <div className={classes.genres}>
                 {item.genre_ids.map((genre) => (
-                  <span className={classes.genre}>{genres[genre]}</span>
+                  <span key={genre.id} className={classes.genre}>
+                    {genres[genre]}
+                  </span>
                 ))}
               </div>
             </div>

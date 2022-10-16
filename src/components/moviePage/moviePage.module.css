@@ -72,12 +72,6 @@
   opacity: 0.6;
 }
 
-.posterImage {
-  border-radius: 10px;
-  width: 300px;
-  height: 450px;
-}
-
 .tagline {
   font-size: 20px;
   font-weight: 200;

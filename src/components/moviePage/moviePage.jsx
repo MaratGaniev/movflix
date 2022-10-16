@@ -19,6 +19,7 @@ import poster_placeholder from "./../../assets/no_poster.png";
 import { CastCarousel } from "../carousels/castCarousel/castCarousel";
 import { useNavigate } from "react-router";
 import { Header } from "../header/header";
+import { Poster } from "../poster/poster";
 
 export const MoviePage = () => {
   let params = useParams()["*"].split("/");
@@ -51,14 +52,16 @@ export const MoviePage = () => {
               />
               <div className={classes.content}>
                 <div className={classes.poster}>
-                  <img
-                    className={classes.posterImage}
-                    src={
-                      currentMovie.poster_path !== null
-                        ? `https://image.tmdb.org/t/p/original${currentMovie.poster_path}`
+                  <Poster
+                    image_path={
+                      currentMovie.poster_path
+                        ? currentMovie.poster_path
                         : poster_placeholder
                     }
-                    alt={""}
+                    variant="poster-page"
+                    onClick={() => {
+                      return;
+                    }}
                   />
                 </div>
                 <div className={classes.about}>
@@ -143,6 +146,7 @@ export const MoviePage = () => {
                 ids: currentMovie.external_ids,
                 awards: currentMovie.awards,
               }}
+              type="person"
             />
             <div className={classes.castBlock}>
               <h3 className={classes.castHeader}>The cast of the movie</h3>

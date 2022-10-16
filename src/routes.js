@@ -10,6 +10,7 @@ import EpisodesPage from "./components/episodesPage/episodesPage";
 
 import CastPageShow from "./components/castPage/castPageShow";
 import CastPageMovie from "./components/castPage/castPageMovie";
+import { PersonPage } from "./components/personPage/personPage";
 
 export const routes = [
   {
@@ -23,6 +24,10 @@ export const routes = [
   {
     path: "/movflix/movies/page/*",
     component: MoviePage,
+  },
+  {
+    path: "/movflix/persons/page/:id/:name",
+    component: PersonPage,
   },
   {
     path: "/movflix/shows/page/:id/:title",

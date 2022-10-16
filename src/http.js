@@ -1,4 +1,3 @@
-import { EaselFill } from "react-bootstrap-icons";
 import {
   setLatestMovies,
   setPopularMovies,
@@ -14,6 +13,7 @@ import {
   setCurrentSeason,
   setShowFullCredits,
   setByCategory,
+  setCurrentPerson,
 } from "./store/reducers/moviesReducer";
 
 export const getMainPageMovies = (API_KEY) => async (dispatch) => {
@@ -330,6 +330,19 @@ export const getByCategory =
               })
             );
           });
+      } else if (category === "latest") {
+        await fetch(
+          `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            dispatch(
+              setByCategory({
+                results: result.results,
+                totalPages: result.total_pages,
+              })
+            );
+          });
       } else if (category === "popular") {
         await fetch(
           `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
@@ -415,3 +428,15 @@ export const getByCategory =
 
     dispatch(setMoviesFetch(false));
   };
+
+export const getPerson = (API_KEY, person_id) => async (dispatch) => {
+  dispatch(setMoviesFetch(true));
+  await fetch(
+    `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY}&language=en-US&append_to_response=combined_credits,external_ids,images,tagged_images`
+  )
+    .then((res) => res.json())
+    .then((result) => {
+      dispatch(setCurrentPerson(result));
+    });
+  dispatch(setMoviesFetch(false));
+};

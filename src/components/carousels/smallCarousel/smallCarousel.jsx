@@ -2,17 +2,16 @@ import React from "react";
 import classes from "./smallCarousel.module.css";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { BlueButton } from "./../../decorative/buttons/buttons";
 import { genres } from "../../../genres";
+import { Poster } from "../../poster/poster";
 
 export default function SmallCarousel(props) {
   const { items, title, variant, onClick, type, autoplay } = props;
-  const [isPointMoved, setIsPointMoved] = useState(false);
 
   let navigate = useNavigate();
   var settings = {
-    dots: false,
+    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 6,
@@ -31,27 +30,15 @@ export default function SmallCarousel(props) {
       <Slider {...settings}>
         {items.map((item) => {
           return (
-            <div className={classes.sliderElement}>
-              <img
-                className={classes.sliderThumb}
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                alt={item.title}
-                onPointerDown={() => {
-                  setIsPointMoved(false);
-                }}
-                onPointerMove={() => {
-                  setIsPointMoved(true);
-                }}
-                onPointerUp={() => {
-                  if (isPointMoved) {
-                    setIsPointMoved(true);
-                    return;
-                  }
-
+            <div className={classes.sliderElement} key={item.id}>
+              <Poster
+                image_path={item.poster_path}
+                onClick={() =>
                   type === "show"
                     ? navigate(`/movflix/shows/page/${item.id}/${item.name}`)
-                    : navigate(`/movflix/movies/page/${item.id}/${item.title}`);
-                }}
+                    : navigate(`/movflix/movies/page/${item.id}/${item.title}`)
+                }
+                variant="carousel-small"
               />
 
               <h1
@@ -82,7 +69,9 @@ export default function SmallCarousel(props) {
 
               <div className={classes.genres}>
                 {item.genre_ids.slice(0, 3).map((genre) => (
-                  <span className={classes.genre}>{genres[genre]}</span>
+                  <span key={genre.id} className={classes.genre}>
+                    {genres[genre]}
+                  </span>
                 ))}
               </div>
             </div>

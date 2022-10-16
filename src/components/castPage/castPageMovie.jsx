@@ -64,7 +64,16 @@ const CastPageMovie = () => {
                   alt={""}
                 />
                 <div className={classes.castInfo}>
-                  <h3 className={classes.castName}>{person.name}</h3>
+                  <h3
+                    className={classes.castName}
+                    onClick={() =>
+                      navigate(
+                        `/movflix/persons/page/${person.id}/${person.name}`
+                      )
+                    }
+                  >
+                    {person.name}
+                  </h3>
                   <ul className={classes.roles}>
                     {person.character ? (
                       <li className={classes.role}>{person.character}</li>
@@ -93,7 +102,16 @@ const CastPageMovie = () => {
                   alt={""}
                 />
                 <div className={classes.castInfo}>
-                  <h3 className={classes.castName}>{person.name}</h3>
+                  <h3
+                    className={classes.castName}
+                    onClick={() =>
+                      navigate(
+                        `/movflix/persons/page/${person.id}/${person.name}`
+                      )
+                    }
+                  >
+                    {person.name}
+                  </h3>
                   <ul className={classes.jobs}>
                     {person.job ? (
                       <li className={classes.role}>{person.job}</li>

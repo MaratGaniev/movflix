@@ -83,9 +83,23 @@ const CastPageShow = () => {
                           : person_placeholder
                       }
                       alt={""}
+                      onClick={() =>
+                        navigate(
+                          `/movflix/persons/page/${person.id}/${person.name}`
+                        )
+                      }
                     />
                     <div className={classes.castInfo}>
-                      <h3 className={classes.castName}>{person.name}</h3>
+                      <h3
+                        className={classes.castName}
+                        onClick={() =>
+                          navigate(
+                            `/movflix/persons/page/${person.id}/${person.name}`
+                          )
+                        }
+                      >
+                        {person.name}
+                      </h3>
                       <ul className={classes.roles}>
                         {person.roles.map((role) =>
                           role.character ? (
@@ -121,9 +135,23 @@ const CastPageShow = () => {
                           : person_placeholder
                       }
                       alt={""}
+                      onClick={() =>
+                        navigate(
+                          `/movflix/persons/page/${person.id}/${person.name}`
+                        )
+                      }
                     />
                     <div className={classes.castInfo}>
-                      <h3 className={classes.castName}>{person.name}</h3>
+                      <h3
+                        className={classes.castName}
+                        onClick={() =>
+                          navigate(
+                            `/movflix/persons/page/${person.id}/${person.name}`
+                          )
+                        }
+                      >
+                        {person.name}
+                      </h3>
                       <ul className={classes.jobs}>
                         {person.jobs.map((job) =>
                           job.job ? (

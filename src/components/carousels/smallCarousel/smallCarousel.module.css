@@ -8,15 +8,6 @@
   padding-top: 10px;
 }
 
-.sliderThumb {
-  height: 350px;
-  width: 230px;
-  cursor: pointer;
-  transition: 0.4s all ease;
-}
-.sliderThumb:hover {
-  opacity: 0.4;
-}
 .sliderElement {
   margin-right: 10px;
   color: white;
